@@ -1,40 +1,31 @@
-import {
-  Container,
-  Logo,
-  BackButton,
-  Icon,
-  BlankSpace,
-  SafeAreaViewIOS,
-} from "./styles";
+import { useNavigation } from "@react-navigation/native";
+
+import { Container, Logo, BackButton, Icon, ImgContainer } from "./styles";
 
 import logoImg from "../../assets/logo.png";
 
-interface HeaderProps {
-  goBack?: () => void;
-}
+type HeaderProps = {
+  showBackButton?: boolean;
+};
 
-export function Header({ goBack }: HeaderProps) {
-  if (goBack) {
-    return (
-      <SafeAreaViewIOS>
-        <Container>
-          <BackButton onPress={goBack}>
-            <Icon name="arrow-left" size={20} />
-          </BackButton>
+export function Header({ showBackButton }: HeaderProps) {
+  const navigation = useNavigation();
 
-          <Logo source={logoImg} />
-
-          <BlankSpace />
-        </Container>
-      </SafeAreaViewIOS>
-    );
+  function handleGoBack() {
+    navigation.goBack();
   }
 
   return (
-    <SafeAreaViewIOS>
-      <Container style={{ justifyContent: "center" }}>
+    <Container>
+      {showBackButton && (
+        <BackButton onPress={handleGoBack}>
+          <Icon name="arrow-left" />
+        </BackButton>
+      )}
+
+      <ImgContainer>
         <Logo source={logoImg} />
-      </Container>
-    </SafeAreaViewIOS>
+      </ImgContainer>
+    </Container>
   );
 }

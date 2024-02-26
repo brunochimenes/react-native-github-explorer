@@ -1,19 +1,28 @@
 export default {
-  colors: {
-    white: "#fff",
+  COLORS: {
+    WHITE: "#FFFFFF",
 
-    gray_50: "#f5f5f5",
-    gray_200: "#e1e1e8",
-    gray_400: "#a8a8b3",
-    gray_500: "#737380",
-    gray_700: "#41414d",
-    gray_800: "#3A3A3A",
+    GREEN_200: "#04D361",
 
-    green_200: "#04d361",
+    GRAY_100: "#F5F5F5",
+    GRAY_200: "#E1E1E8",
+    GRAY_400: "#A8A8B3",
+    GRAY_500: "#737380",
+    GRAY_700: "#41414D",
+    GRAY_800: "#3A3A3A",
+
+    DANGER: "#E25858",
   },
-
-  fonts: {
-    regular: "Roboto_400Regular",
-    bold: "Roboto_700Bold",
+  FONT_FAMILY: {
+    REGULAR: "Roboto_400Regular",
+    BOLD: "Roboto_700Bold",
+  },
+  FONT_SIZE: {
+    SM: 14,
+    MD: 16,
+    LG: 18,
+    XL: 20,
+    XXL: 24,
+    XXXL: 30,
   },
 };

@@ -2,41 +2,45 @@ import { TextInput, FlatList, FlatListProps } from "react-native";
 import styled from "styled-components/native";
 import { Feather } from "@expo/vector-icons";
 
-import { RepositoryProps } from "../../contexts/RepositoriesProvider";
+import { RepositoryProps } from "../../contexts/RepositoryContext";
 
 export const Container = styled.View`
   flex: 1;
 
-  margin-top: 100px;
   padding: 0 20px;
 `;
 
-export const AddGithubRepo = styled.View``;
+export const BackgroundImg = styled.Image`
+  left: 5%;
+  position: absolute;
+`;
 
 export const Title = styled.Text`
-  color: ${({ theme }) => theme.colors.gray_800};
+  color: ${({ theme }) => theme.COLORS.GRAY_800};
 
-  font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: 28px;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.BOLD};
+  font-size: ${({ theme }) => theme.FONT_SIZE.XXXL}px;
+
+  margin-top: 32px;
 `;
 
 export const Input = styled.View`
   flex-direction: row;
 
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.COLORS.WHITE};
 
   margin-top: 20px;
   border-radius: 5px;
 `;
 
 export const InputField = styled(TextInput).attrs(({ theme }) => ({
-  placeholderTextColor: theme.colors.gray_400,
+  placeholderTextColor: theme.COLORS.GRAY_400,
 }))`
   flex: 1;
 
-  color: ${({ theme }) => theme.colors.gray_800};
+  color: ${({ theme }) => theme.COLORS.GRAY_800};
 
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
 
   padding: 0 12px;
 `;
@@ -44,7 +48,7 @@ export const InputField = styled(TextInput).attrs(({ theme }) => ({
 export const InputButton = styled.TouchableOpacity.attrs({
   activeOpacity: 0.7,
 })`
-  background-color: ${({ theme }) => theme.colors.green_200};
+  background-color: ${({ theme }) => theme.COLORS.GREEN_200};
 
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -54,7 +58,7 @@ export const InputButton = styled.TouchableOpacity.attrs({
 `;
 
 export const Icon = styled(Feather)`
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.COLORS.WHITE};
 `;
 
 export const RepositoriesList = styled(
@@ -62,5 +66,5 @@ export const RepositoriesList = styled(
     props: FlatListProps<RepositoryProps>
   ) => FlatList<RepositoryProps>
 )`
-  margin-top: 64px;
+  margin-top: 32px;
 `;

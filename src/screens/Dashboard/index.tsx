@@ -1,11 +1,10 @@
 import { useRef, useState } from "react";
-import { TextInput } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { useNavigation } from "@react-navigation/core";
+import { TextInput, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   Container,
-  AddGithubRepo,
+  BackgroundImg,
   Title,
   Input,
   InputField,
@@ -14,30 +13,24 @@ import {
   RepositoriesList,
 } from "./styles";
 
-import { useRepositories } from "../../hooks/useRepositories";
+import { useRepository } from "../../hooks/useRepository";
 
-import { Background } from "../../components/Background";
+import githubBg from "../../assets/github_bg.png";
+
+import { Header } from "../../components/Header";
 import { Card } from "../../components/Card";
-
-type RootStackParamList = {
-  Dashboard: undefined;
-  Repository: {
-    repositoryId: number;
-  };
-};
-
-type NavigationProps = StackNavigationProp<RootStackParamList, "Dashboard">;
 
 export function Dashboard() {
   const [inputText, setInputText] = useState("");
+
+  const { navigate } = useNavigation();
+
+  const { addRepository, repositories } = useRepository();
+
   const inputRef = useRef<TextInput>(null);
 
-  const { navigate } = useNavigation<NavigationProps>();
-
-  const { addRepository, repositories } = useRepositories();
-
-  function handleAddRepository() {
-    addRepository(inputText);
+  function handleAddRepository(ownerAndRepoName: string) {
+    addRepository(ownerAndRepoName);
 
     setInputText("");
   }
@@ -49,32 +42,38 @@ export function Dashboard() {
   }
 
   return (
-    <Background>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
-        <AddGithubRepo>
-          <Title>Explore repositórios{"\n"}no GitHub.</Title>
+        <Header />
 
-          <Input>
-            <InputField
-              ref={inputRef}
-              placeholder="Digite aqui 'usuário/repositório'"
-              value={inputText}
-              onChangeText={setInputText}
-              onSubmitEditing={handleAddRepository}
-              returnKeyType="send"
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
+        <BackgroundImg
+          source={githubBg}
+          defaultSource={githubBg}
+          alt="Pessoas treinando"
+          resizeMode="contain"
+        />
 
-            <InputButton
-              testID="input-button"
-              onPress={handleAddRepository}
-              disabled={inputText === "" ? true : false}
-            >
-              <Icon name="search" size={20} />
-            </InputButton>
-          </Input>
-        </AddGithubRepo>
+        <Title>Explore repositórios{"\n"}no GitHub.</Title>
+
+        <Input>
+          <InputField
+            ref={inputRef}
+            placeholder="Digite aqui 'usuário/repositório'"
+            value={inputText}
+            onChangeText={setInputText}
+            onSubmitEditing={() => handleAddRepository(inputText)}
+            returnKeyType="send"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+
+          <InputButton
+            onPress={() => handleAddRepository(inputText)}
+            disabled={inputText === "" ? true : false}
+          >
+            <Icon name="search" size={20} />
+          </InputButton>
+        </Input>
 
         <RepositoriesList
           data={repositories}
@@ -92,8 +91,9 @@ export function Dashboard() {
               onPress={() => handleRepositoryPageNavigation(repository.id)}
             />
           )}
+          contentContainerStyle={{ paddingBottom: 100 }}
         />
       </Container>
-    </Background>
+    </TouchableWithoutFeedback>
   );
 }

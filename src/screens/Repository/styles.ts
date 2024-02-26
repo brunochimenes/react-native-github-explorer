@@ -1,12 +1,12 @@
 import { FlatList, FlatListProps } from "react-native";
 import styled from "styled-components/native";
 
-import { IssueProps } from "../../contexts/RepositoriesProvider";
+import { IssueProps } from "../../contexts/RepositoryContext";
 
 export const Container = styled.View`
   flex: 1;
 
-  margin-top: 100px;
+  margin-top: 32px;
   padding: 0 20px;
 `;
 
@@ -14,7 +14,7 @@ export const RepoInfo = styled.View`
   flex-direction: row;
 `;
 
-export const OwnerAvatar = styled.Image`
+export const Avatar = styled.Image`
   width: 80px;
   height: 80px;
 
@@ -28,76 +28,48 @@ export const TextGroup = styled.View`
   margin-left: 16px;
 `;
 
-export const Description = styled.Text`
-  color: ${({ theme }) => theme.colors.gray_500};
+export const Title = styled.Text`
+  color: ${({ theme }) => theme.COLORS.GRAY_800};
 
-  font-size: 16px;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.BOLD};
+  font-size: ${({ theme }) => theme.FONT_SIZE.XXL}px;
+`;
+
+export const Description = styled.Text`
+  color: ${({ theme }) => theme.COLORS.GRAY_500};
+
+  font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
 `;
 
 export const RepoStats = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
 
-  margin-top: 24px;
+  margin-top: 20px;
   padding: 0 20px;
 `;
 
-export const Stars = styled.View`
+export const Stats = styled.View`
+  justify-content: center;
   align-items: center;
 `;
 
-export const StarsCounter = styled.Text`
-  color: ${({ theme }) => theme.colors.gray_800};
+export const StatsCounter = styled.Text`
+  color: ${({ theme }) => theme.COLORS.GRAY_800};
 
-  font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: 20px;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.BOLD};
+  font-size: ${({ theme }) => theme.FONT_SIZE.XL}px;
 `;
 
-export const StarsText = styled.Text`
-  color: ${({ theme }) => theme.colors.gray_500};
+export const StatsText = styled.Text`
+  color: ${({ theme }) => theme.COLORS.GRAY_500};
 
-  font-size: 18px;
-`;
-
-export const Forks = styled.View`
-  align-items: center;
-`;
-
-export const ForksCounter = styled.Text`
-  color: ${({ theme }) => theme.colors.gray_800};
-
-  font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: 20px;
-`;
-
-export const ForksText = styled.Text`
-  color: ${({ theme }) => theme.colors.gray_500};
-
-  font-size: 18px;
-`;
-
-export const OpenIssues = styled.View`
-  align-items: center;
-`;
-
-export const OpenIssuesCounter = styled.Text`
-  color: ${({ theme }) => theme.colors.gray_800};
-
-  font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: 20px;
-`;
-
-export const OpenIssuesText = styled.Text`
-  color: ${({ theme }) => theme.colors.gray_500};
-
-  font-size: 16px;
-
-  text-align: center;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
+  font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
 `;
 
 export const IssuesList = styled(
   FlatList as new (props: FlatListProps<IssueProps>) => FlatList<IssueProps>
 )`
-  margin-top: 50px;
+  margin-top: 32px;
 `;

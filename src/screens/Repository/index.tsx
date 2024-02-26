@@ -1,40 +1,36 @@
 import { Linking } from "react-native";
-import { useRoute } from "@react-navigation/core";
+import { useRoute } from "@react-navigation/native";
 
 import {
   Container,
   RepoInfo,
-  OwnerAvatar,
+  Avatar,
   TextGroup,
+  Title,
   Description,
   RepoStats,
-  Stars,
-  StarsCounter,
-  StarsText,
-  Forks,
-  ForksCounter,
-  ForksText,
-  OpenIssues,
-  OpenIssuesCounter,
-  OpenIssuesText,
+  Stats,
+  StatsCounter,
+  StatsText,
   IssuesList,
 } from "./styles";
 
-import { useRepositories } from "../../hooks/useRepositories";
-
-import { TitleAnimation } from "./TitleAnimation";
+import { useRepository } from "../../hooks/useRepository";
 
 import { Background } from "../../components/Background";
+import { Header } from "../../components/Header";
 import { Card } from "../../components/Card";
 
-interface RepositoryParams {
+type RepositoryParams = {
   repositoryId: number;
-}
+};
 
 export function Repository() {
   const { params } = useRoute();
   const { repositoryId } = params as RepositoryParams;
-  const { findRepositoryById } = useRepositories();
+
+  const { findRepositoryById } = useRepository();
+
   const repository = findRepositoryById(repositoryId);
 
   const {
@@ -53,32 +49,34 @@ export function Repository() {
 
   return (
     <Background>
+      <Header showBackButton />
+
       <Container>
         <RepoInfo>
-          <OwnerAvatar source={{ uri: owner.avatar_url }} />
+          <Avatar source={{ uri: owner.avatar_url }} />
 
           <TextGroup>
-            <TitleAnimation>{full_name}</TitleAnimation>
+            <Title>{full_name}</Title>
 
             <Description numberOfLines={2}>{description}</Description>
           </TextGroup>
         </RepoInfo>
 
         <RepoStats>
-          <Stars>
-            <StarsCounter>{stargazers_count}</StarsCounter>
-            <StarsText>Stars</StarsText>
-          </Stars>
+          <Stats>
+            <StatsCounter>{stargazers_count}</StatsCounter>
+            <StatsText>Stars</StatsText>
+          </Stats>
 
-          <Forks>
-            <ForksCounter>{forks_count}</ForksCounter>
-            <ForksText>Forks</ForksText>
-          </Forks>
+          <Stats>
+            <StatsCounter>{forks_count}</StatsCounter>
+            <StatsText>Forks</StatsText>
+          </Stats>
 
-          <OpenIssues>
-            <OpenIssuesCounter>{open_issues_count}</OpenIssuesCounter>
-            <OpenIssuesText>Issues{"\n"}Abertas</OpenIssuesText>
-          </OpenIssues>
+          <Stats>
+            <StatsCounter>{open_issues_count}</StatsCounter>
+            <StatsText>Issues/Open</StatsText>
+          </Stats>
         </RepoStats>
 
         <IssuesList
@@ -95,6 +93,7 @@ export function Repository() {
               onPress={() => handleIssueNavigation(issue.html_url)}
             />
           )}
+          contentContainerStyle={{ paddingBottom: 100 }}
         />
       </Container>
     </Background>

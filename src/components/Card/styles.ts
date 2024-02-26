@@ -1,24 +1,15 @@
-import styled, { css } from "styled-components/native";
+import styled from "styled-components/native";
 import { Feather } from "@expo/vector-icons";
 
-interface CardContainerProps {
-  hasImage: boolean;
-}
-
-export const Container = styled.View``;
-
-export const CardContainer = styled.Pressable<CardContainerProps>`
+export const Container = styled.Pressable`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.COLORS.WHITE};
 
-  ${({ hasImage }) =>
-    !hasImage &&
-    css`
-      margin-bottom: 12px;
-    `}
+  margin-bottom: 12px;
+
   border-radius: 5px;
   padding: 12px 18px;
 `;
@@ -43,35 +34,20 @@ export const TextGroup = styled.View`
 `;
 
 export const Title = styled.Text`
-  color: ${({ theme }) => theme.colors.gray_700};
+  color: ${({ theme }) => theme.COLORS.GRAY_700};
 
-  font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: 18px;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.BOLD};
+  font-size: ${({ theme }) => theme.FONT_SIZE.LG}px;
 `;
 
 export const Description = styled.Text`
-  color: ${({ theme }) => theme.colors.gray_400};
+  color: ${({ theme }) => theme.COLORS.GRAY_400};
 
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.FONT_SIZE.SM}px;
 `;
 
 export const Icon = styled(Feather)`
-  color: ${({ theme }) => theme.colors.gray_200};
+  color: ${({ theme }) => theme.COLORS.GRAY_200};
 
   margin-left: 12px;
-`;
-
-export const DeleteContainer = styled.View`
-  justify-content: center;
-  align-items: flex-end;
-
-  background-color: red;
-
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  padding: 0 30px;
-`;
-
-export const DeleteIcon = styled(Feather)`
-  color: #fff;
 `;

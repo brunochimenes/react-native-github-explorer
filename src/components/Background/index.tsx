@@ -1,17 +1,13 @@
 import { ReactNode } from "react";
 
-import { Container, SafeAreaViewIOS } from "./styles";
+import { Container } from "./styles";
 
 import githubBg from "../../assets/github_bg.png";
 
-interface BackgroundProps {
+type BackgroundProps = {
   children: ReactNode;
-}
+};
 
 export function Background({ children }: BackgroundProps) {
-  return (
-    <Container source={githubBg}>
-      <SafeAreaViewIOS>{children}</SafeAreaViewIOS>
-    </Container>
-  );
+  return <Container source={githubBg}>{children}</Container>;
 }

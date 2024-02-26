@@ -1,59 +1,35 @@
-import { useCallback, useEffect, useState } from "react";
-import { StatusBar, View } from "react-native";
+import { StatusBar } from "react-native";
 import { ThemeProvider } from "styled-components/native";
-import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
-import * as SplashScreen from "expo-splash-screen";
-import * as Font from "expo-font";
-
-import { Routes } from "./src/routes";
-
-import { RepositoriesProvider } from "./src/contexts/RepositoriesProvider";
+import {
+  Roboto_400Regular,
+  Roboto_700Bold,
+  useFonts,
+} from "@expo-google-fonts/roboto";
 
 import theme from "./src/theme";
 
+import { RepositoryContextProvider } from "./src/contexts/RepositoryContext";
+
+import { Routes } from "./src/routes";
+import { Loading } from "./src/components/Loading";
+
 export default function App() {
-  const [appIsReady, setAppIsReady] = useState(false);
-
-  useEffect(() => {
-    async function prepare() {
-      try {
-        await SplashScreen.preventAutoHideAsync();
-        await Font.loadAsync({
-          Roboto_400Regular,
-          Roboto_700Bold,
-        });
-      } catch (e) {
-        console.warn(e);
-      } finally {
-        setAppIsReady(true);
-      }
-    }
-
-    prepare();
-  }, []);
-
-  const onLayoutRootView = useCallback(async () => {
-    if (appIsReady) {
-      await SplashScreen.hideAsync();
-    }
-  }, [appIsReady]);
-
-  if (!appIsReady) {
-    return null;
-  }
+  const [fontsLoaded] = useFonts({
+    Roboto_400Regular,
+    Roboto_700Bold,
+  });
 
   return (
-    <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+    <ThemeProvider theme={theme}>
       <StatusBar
-        backgroundColor={theme.colors.gray_50}
+        backgroundColor="transparent"
         barStyle="dark-content"
+        translucent
       />
 
-      <RepositoriesProvider>
-        <ThemeProvider theme={theme}>
-          <Routes />
-        </ThemeProvider>
-      </RepositoriesProvider>
-    </View>
+      <RepositoryContextProvider>
+        {fontsLoaded ? <Routes /> : <Loading />}
+      </RepositoryContextProvider>
+    </ThemeProvider>
   );
 }
