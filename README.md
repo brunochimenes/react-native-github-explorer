@@ -14,7 +14,7 @@ O projeto corresponde ao terceiro desafio do terceiro módulo do curso Ignite/Re
 ## ⚙️ Funcionalidades
 
 - [x] Cadastro de repositório.
-- [x] Visualização do repositório.
+- [x] Detalhes do repositório.
   - [x] Visualização das issues.
 - [x] Listagem dos repositórios.
 
